@@ -19,10 +19,14 @@ import openai
 import pandas as pd
 import numpy as np
 from pandasql import sqldf
+import time
+
+
 
 
 # from OPENAI_API_KEY import OPENAI_API_KEY
 
+st.set_page_config(layout="wide")
 st.subheader("Enter your OpenAI API Key")
 OPENAI_API_KEY = st.text_input(" ", type="password")
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
@@ -124,11 +128,20 @@ if mode == "Import CSV":
 
             with col1:
                 st.markdown("### gpt 3.5 turbo")
+                start = time.time()
                 sql_query_3 = llm_runner_3(user_query)
+                end = time.time()
+                message = "Execution Time: " + str(end-start)
+                st.info(message)
+
 
             with col2:
                 st.markdown("### gpt 4")
+                start = time.time()
                 sql_query_4 = llm_runner_4(user_query)
+                end = time.time()
+                message = "Execution Time: " + str(end-start)
+                st.info(message)
 
             col3, col4= st.columns(2)
 
